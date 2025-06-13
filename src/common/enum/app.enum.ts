@@ -4,3 +4,8 @@ export enum Environment {
   LOCAL = 'local',
   TEST = 'test',
 }
+
+export enum SupportedLanguage {
+  EN = 'en',
+  UA = 'ua',
+}

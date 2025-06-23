@@ -13,15 +13,15 @@ async function bootstrap() {
     .setVersion('1.0')
     .build();
 
+  const documentFactory = () => SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('docs', app, documentFactory);
+
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
       forbidNonWhitelisted: true,
     }),
   );
-
-  const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, documentFactory);
 
   await app.listen(appConfig.port, appConfig.host, async () => {
     Logger.log('Server is started');

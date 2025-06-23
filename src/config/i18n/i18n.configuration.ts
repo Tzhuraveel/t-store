@@ -6,7 +6,7 @@ import {
   I18nOptionsWithoutResolvers,
   QueryResolver,
 } from 'nestjs-i18n';
-import { Environment, SupportedLanguage } from '#common/enum';
+import { Environment, SupportedLanguage } from '#common/enums';
 import appConfig from '../app/configuration';
 
 const pathToLocalization = path.join(

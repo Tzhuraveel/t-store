@@ -1,6 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import compression from 'compression';
 
 import { AppConfigService } from '#config/app/app-config.service';
 
@@ -15,6 +16,8 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  app.use(compression());
 
   const appConfigServise = app.get(AppConfigService);
 

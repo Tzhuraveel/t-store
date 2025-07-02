@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
 import { BaseEntity } from './base/base.entity';
 
@@ -10,6 +10,7 @@ export class UserEntity extends BaseEntity {
   @Column()
   hashPassword: string;
 
+  @Index({ unique: true })
   @Column()
   email: string;
 

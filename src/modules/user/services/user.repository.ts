@@ -14,7 +14,13 @@ export class UserRepository
     super(UserEntity, dataSource.manager);
   }
 
-  async createAndSave(user: UserEntity): Promise<UserEntity> {
+  async findOneById(id: number): Promise<UserEntity | null> {
+    return await this.createQueryBuilder('users')
+      .where('users.id = :id', { id })
+      .getOne();
+  }
+
+  async createAndSave(user: Partial<UserEntity>): Promise<UserEntity> {
     return await this.save(this.create(user));
   }
 }

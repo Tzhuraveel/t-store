@@ -9,5 +9,6 @@ export default registerAs('app', () => {
 
   return {
     port: validatedConfig.APP_PORT,
+    environment: validatedConfig.NODE_ENV,
   };
 });

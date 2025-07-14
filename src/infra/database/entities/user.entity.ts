@@ -7,16 +7,16 @@ export class UserEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  hashPassword: string;
+  @Column({ select: false, name: 'password_hash' })
+  passwordHash: string;
 
   @Index({ unique: true })
   @Column()
   email: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, name: 'first_name' })
   firstName?: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, name: 'last_name' })
   lastName?: string;
 }

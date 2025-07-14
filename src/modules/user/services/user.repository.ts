@@ -3,7 +3,7 @@ import { DataSource, Repository } from 'typeorm';
 
 import { UserEntity } from '#infra/database/entities/user.entity';
 
-import { UserRepositoryInterface } from '../model/interfaces/user-repository.interface';
+import { UserRepositoryInterface } from '../models/interfaces/user-repository.interface';
 
 @Injectable()
 export class UserRepository
@@ -22,5 +22,16 @@ export class UserRepository
 
   async createAndSave(user: Partial<UserEntity>): Promise<UserEntity> {
     return await this.save(this.create(user));
+  }
+
+  async findByEmail(email: string): Promise<UserEntity | null> {
+    return await this.findOne({ where: { email } });
+  }
+
+  async findForAuthentication(email: string): Promise<UserEntity | null> {
+    return await this.findOne({
+      where: { email },
+      select: { id: true, passwordHash: true },
+    });
   }
 }

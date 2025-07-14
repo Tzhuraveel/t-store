@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
+import { APP_CONFIG_SERVICE } from './app-config.constants';
 import { AppConfigService } from './app-config.service';
 import appConfiguration from './app-configuration';
 
@@ -10,7 +11,12 @@ import appConfiguration from './app-configuration';
       load: [appConfiguration],
     }),
   ],
-  providers: [AppConfigService],
-  exports: [AppConfigService],
+  providers: [
+    {
+      provide: APP_CONFIG_SERVICE,
+      useClass: AppConfigService,
+    },
+  ],
+  exports: [APP_CONFIG_SERVICE],
 })
 export class AppConfigModule {}

@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import compression from 'compression';
 
+import { APP_CONFIG_SERVICE } from '#config/app/app-config.constants';
 import { AppConfigService } from '#config/app/app-config.service';
 
 import { AppModule } from './app.module';
@@ -19,9 +20,9 @@ async function bootstrap() {
 
   app.use(compression());
 
-  const appConfigServise = app.get(AppConfigService);
+  const appConfigService = app.get<AppConfigService>(APP_CONFIG_SERVICE);
 
-  await app.listen(appConfigServise.port);
+  await app.listen(appConfigService.port);
 }
 
 bootstrap();

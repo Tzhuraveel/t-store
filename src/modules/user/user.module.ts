@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 
-import { USER_REPOSITORY, USER_SERVICE } from './model/constants/user.constants';
+import {
+  USER_REPOSITORY,
+  USER_SERVICE,
+} from './models/constants/user.constants';
 import { UserRepository } from './services/user.repository';
 import { UserService } from './services/user.service';
 import { UserController } from './user.controller';

@@ -1,10 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
 
 import { UserEntity } from '#infra/database/entities/user.entity';
 
-import { USER_REPOSITORY } from '../model/constants/user.constants';
-import { CreateUserRequestDto } from '../model/dtos/request/create-user-request.dto';
-import { UserServiceInterface } from '../model/interfaces/user-service.interface';
+import { USER_REPOSITORY } from '../models/constants/user.constants';
+import { UserServiceInterface } from '../models/interfaces/user-service.interface';
+import { CreateUserInput } from '../models/types/create-user-input.type';
 import { UserRepository } from './user.repository';
 
 @Injectable()
@@ -14,7 +14,21 @@ export class UserService implements UserServiceInterface {
     private readonly userRepository: UserRepository,
   ) {}
 
-  async create(user: CreateUserRequestDto): Promise<UserEntity> {
-    return await this.userRepository.createAndSave(user);
+  async create(data: CreateUserInput): Promise<UserEntity> {
+    return await this.userRepository.createAndSave(data);
+  }
+
+  async profile(userId: number): Promise<UserEntity> {
+    return await this.userRepository.findOneById(userId);
+  }
+
+  async ensureEmailIsUnique(email: string): Promise<void> {
+    const isUserExist = await this.userRepository.existsBy({
+      email,
+    });
+
+    if (isUserExist) {
+      throw new ConflictException('Email already exists');
+    }
   }
 }

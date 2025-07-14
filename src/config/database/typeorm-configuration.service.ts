@@ -27,8 +27,7 @@ export class TypeOrmConfigurations {
         entities: [path.join(dbDirectory, 'entities', '*.entity.js')],
         migrations: [path.join(dbDirectory, 'migrations', '*.js')],
         extra: {
-          max: 10,
-          connectionTimeoutMillis: 100,
+          max: 1,
         },
         logging: true,
       }),

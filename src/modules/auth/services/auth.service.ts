@@ -40,7 +40,7 @@ export class AuthService implements AuthServiceInterface {
 
     await this.userService.ensureEmailIsUnique(email);
 
-    const passwordHash = PasswordHelper.hashPassword(password);
+    const passwordHash = await PasswordHelper.hashPassword(password);
 
     const user = await this.userService.create({ email, passwordHash });
 

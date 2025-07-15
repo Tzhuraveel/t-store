@@ -8,7 +8,10 @@ export class PasswordHelper {
     return await bcrypt.compare(password, passwordHash);
   }
 
-  static hashPassword(password: string, salt: number = 10): string {
-    return bcrypt.hashSync(password, salt);
+  static async hashPassword(
+    password: string,
+    salt: number = 10,
+  ): Promise<string> {
+    return await bcrypt.hash(password, salt);
   }
 }

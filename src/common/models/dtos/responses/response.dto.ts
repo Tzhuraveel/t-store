@@ -2,7 +2,9 @@ import { ResponseStatus } from '#common/models/enums/response-status.enum';
 
 export class ResponseDto<T = any> {
   status: ResponseStatus;
-  statusCode: string;
+  statusCode: number;
   messages: string[];
-  data: T;
+  timestamp: string;
+  path: string;
+  data?: T;
 }

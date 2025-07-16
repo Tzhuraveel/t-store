@@ -27,9 +27,8 @@ export class TypeOrmConfigurations {
         entities: [path.join(dbDirectory, 'entities', '*.entity.js')],
         migrations: [path.join(dbDirectory, 'migrations', '*.js')],
         extra: {
-          max: 1,
+          max: 100,
         },
-        logging: true,
       }),
       inject: [DatabaseConfigService],
     };

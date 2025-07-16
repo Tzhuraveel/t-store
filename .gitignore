@@ -2,3 +2,4 @@ node_modules
 dist
 environments
 test
+.DS_Store

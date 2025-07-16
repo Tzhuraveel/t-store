@@ -9,9 +9,16 @@ import { AccessTokenGuard } from '#modules/auth/guards/access-token.guard';
 import { UserModule } from '#modules/user/user.module';
 
 import { GlobalExceptionFilter } from './common/filters/global-exception.filter';
+import { MetricsModule } from './infra/metrics/metrics.module';
 
 @Module({
-  imports: [AppConfigModule, DatabaseModule, UserModule, AuthModule],
+  imports: [
+    AppConfigModule,
+    DatabaseModule,
+    UserModule,
+    AuthModule,
+    MetricsModule,
+  ],
   providers: [
     {
       provide: APP_GUARD,

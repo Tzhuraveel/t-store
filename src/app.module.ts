@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 import { ResponseMapInterceptor } from '#common/interceptors/response-map.interceptor';
 import { AppConfigModule } from '#config/app/app-config.module';
 import { DatabaseModule } from '#infra/database/database.module';
+import { EmailModule } from '#infra/email/email.module';
 import { AuthModule } from '#modules/auth/auth.module';
 import { AccessTokenGuard } from '#modules/auth/guards/access-token.guard';
 import { UserModule } from '#modules/user/user.module';
@@ -18,6 +20,8 @@ import { MetricsModule } from './infra/metrics/metrics.module';
     UserModule,
     AuthModule,
     MetricsModule,
+    EventEmitterModule.forRoot(),
+    EmailModule,
   ],
   providers: [
     {

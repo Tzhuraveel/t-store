@@ -1,6 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Response } from 'express';
 
+import { USER_SIGNED_UP } from '#common/events/constants';
 import { PasswordHelper } from '#common/helpers/password.helper';
 import { Environment } from '#common/models/enums/app.enum';
 import { APP_CONFIG_SERVICE } from '#config/app/app-config.constants';
@@ -23,6 +25,7 @@ export class AuthService implements AuthServiceInterface {
     @Inject(TOKEN_SERVICE) private readonly tokenService: TokenService,
     @Inject(APP_CONFIG_SERVICE)
     private readonly appConfigService: AppConfigService,
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   async signIn(userData: UserData): Promise<TokensResponseDto> {
@@ -36,19 +39,30 @@ export class AuthService implements AuthServiceInterface {
   }
 
   async signUp(dto: SignUpRequestDto): Promise<TokensResponseDto> {
-    const { email, password } = dto;
+    const { email, password, firstName, lastName } = dto;
 
     await this.userService.ensureEmailIsUnique(email);
 
     const passwordHash = await PasswordHelper.hashPassword(password);
 
-    const user = await this.userService.create({ email, passwordHash });
+    const user = await this.userService.create({
+      email,
+      passwordHash,
+      firstName,
+      lastName,
+    });
 
     const payload: JwtPayload = {
       userId: user.id,
     };
 
     const tokens = await this.tokenService.generateAuthTokens(payload);
+
+    this.eventEmitter.emit(USER_SIGNED_UP, {
+      email: user.email,
+      firstName,
+      lastName,
+    });
 
     return tokens;
   }

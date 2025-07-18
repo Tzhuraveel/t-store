@@ -1,23 +1,15 @@
-import {
-  IsEmail,
-  IsOptional,
-  IsString,
-  MaxLength,
-  MinLength,
-} from 'class-validator';
+import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class BaseAuthRequestDto {
   @IsString()
   @MinLength(2)
   @MaxLength(50)
-  @IsOptional()
-  firstName?: string;
+  firstName: string;
 
   @IsString()
   @MinLength(2)
   @MaxLength(50)
-  @IsOptional()
-  lastName?: string;
+  lastName: string;
 
   @IsString()
   @IsEmail()

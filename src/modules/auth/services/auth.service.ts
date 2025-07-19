@@ -8,21 +8,21 @@ import { Environment } from '#common/models/enums/app.enum';
 import { APP_CONFIG_SERVICE } from '#config/app/app-config.constants';
 import { AppConfigService } from '#config/app/app-config.service';
 import { USER_SERVICE } from '#modules/user/models/constants/user.constants';
+import { UserServiceInterface } from '#modules/user/models/interfaces/user-service.interface';
 import { UserData } from '#modules/user/models/types/user-data.type';
-import { UserService } from '#modules/user/services/user.service';
 
 import { TOKEN_SERVICE } from '../models/constants/auth.constants';
 import { SignUpRequestDto } from '../models/dtos/request/sign-up-request.dto copy';
 import { TokensResponseDto } from '../models/dtos/response/tokens-response.dto';
 import { AuthServiceInterface } from '../models/interfaces/auth-service.interface';
+import { TokenServiceInterface } from '../models/interfaces/token-service.interface';
 import { JwtPayload } from '../models/types/jwt-payload.type';
-import { TokenService } from './token.service';
 
 @Injectable()
 export class AuthService implements AuthServiceInterface {
   constructor(
-    @Inject(USER_SERVICE) private readonly userService: UserService,
-    @Inject(TOKEN_SERVICE) private readonly tokenService: TokenService,
+    @Inject(USER_SERVICE) private readonly userService: UserServiceInterface,
+    @Inject(TOKEN_SERVICE) private readonly tokenService: TokenServiceInterface,
     @Inject(APP_CONFIG_SERVICE)
     private readonly appConfigService: AppConfigService,
     private readonly eventEmitter: EventEmitter2,

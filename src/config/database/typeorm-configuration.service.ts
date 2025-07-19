@@ -27,7 +27,9 @@ export class TypeOrmConfigurations {
         entities: [path.join(dbDirectory, 'entities', '*.entity.js')],
         migrations: [path.join(dbDirectory, 'migrations', '*.js')],
         extra: {
-          max: 100,
+          max: 14,
+          idleTimeoutMillis: 30000,
+          connectionTimeoutMillis: 5000,
         },
       }),
       inject: [DatabaseConfigService],

@@ -5,6 +5,7 @@ import compression from 'compression';
 
 import { APP_CONFIG_SERVICE } from '#config/app/app-config.constants';
 import { AppConfigService } from '#config/app/app-config.service';
+import { ClusterService } from '#infra/cluster/services/cluster.service';
 
 import { AppModule } from './app.module';
 
@@ -25,4 +26,4 @@ async function bootstrap() {
   await app.listen(appConfigService.port);
 }
 
-bootstrap();
+ClusterService.clusterize(bootstrap);

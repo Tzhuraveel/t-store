@@ -1,8 +1,9 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import { Request } from 'express';
 
 export const UploadedFile = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
-    const req: any = ctx.switchToHttp().getRequest();
+    const req = ctx.switchToHttp().getRequest<Request>();
     return req.uploadedFile;
   },
 );

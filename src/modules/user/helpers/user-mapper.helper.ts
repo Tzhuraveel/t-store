@@ -6,6 +6,7 @@ export class UserMapper {
   static toData(user: UserEntity | null): UserData {
     return {
       userId: user.id,
+      avatarKey: user.avatarKey,
     };
   }
 }

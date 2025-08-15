@@ -6,6 +6,7 @@ import { ResponseMapInterceptor } from '#common/interceptors/response-map.interc
 import { AppConfigModule } from '#config/app/app-config.module';
 import { DatabaseModule } from '#infra/database/database.module';
 import { EmailModule } from '#infra/email/email.module';
+// import { FileStorageModule } from '#infra/file-storage/file-storage.module';
 import { AuthModule } from '#modules/auth/auth.module';
 import { AccessTokenGuard } from '#modules/auth/guards/access-token.guard';
 import { UserModule } from '#modules/user/user.module';

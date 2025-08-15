@@ -1,5 +1,5 @@
 export enum MimeType {
-  JPEG = 'image/jpeg',
+  JPEG = 'video/quicktime',
   PNG = 'image/png',
   DOC = 'application/msword',
 }

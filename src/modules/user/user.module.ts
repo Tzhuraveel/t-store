@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 
+import { FileStorageModule } from '#infra/file-storage/file-storage.module';
+
 import {
   USER_REPOSITORY,
   USER_SERVICE,
@@ -9,6 +11,7 @@ import { UserService } from './services/user.service';
 import { UserController } from './user.controller';
 
 @Module({
+  imports: [FileStorageModule],
   controllers: [UserController],
   providers: [
     {

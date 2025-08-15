@@ -14,6 +14,9 @@ export class UserEntity extends BaseEntity {
   @Column()
   email: string;
 
+  @Column({ nullable: true })
+  avatarKey: string;
+
   @Column({ nullable: true, name: 'first_name' })
   firstName?: string;
 

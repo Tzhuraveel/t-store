@@ -1,6 +1,6 @@
 export interface UploadedFileData {
   // fieldname: string;
-  filename: string;
+  extention: string;
   encoding: string;
   mimeType: string;
   stream: NodeJS.ReadableStream;

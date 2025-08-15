@@ -10,10 +10,11 @@ import {
 } from '@nestjs/common';
 import Busboy from 'busboy';
 import { Request } from 'express';
-import * as FileType from 'file-type';
 import { from, Observable, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
-import { PassThrough, Readable } from 'stream';
+import { Readable } from 'stream';
+
+import { peekFileTypeResult } from '#common/utils/peek-file-type.util';
 
 import {
   FileValidation,
@@ -88,11 +89,7 @@ export function FileStreamInterceptor(
               reject(err);
             });
 
-            const buffer = await new Promise<Buffer>((resolve) => {
-              stream.once('readable', () => resolve(stream.read(4100)));
-            });
-
-            const fileTypeResult = await FileType.fileTypeFromBuffer(buffer);
+            const fileTypeResult = await peekFileTypeResult(stream, 4100);
 
             if (
               !fileTypeResult ||
@@ -103,14 +100,10 @@ export function FileStreamInterceptor(
               reject(err);
             }
 
-            const passthrough = new PassThrough();
-            passthrough.write(buffer);
-            stream.pipe(passthrough);
-
             req.uploadedFile = {
-              stream: passthrough,
-              filename: info.filename,
-              mimeType: info.mimeType,
+              stream: stream,
+              extention: fileTypeResult.ext,
+              mimeType: fileTypeResult.mime,
               encoding: info.encoding,
             };
 
